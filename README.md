@@ -2,7 +2,8 @@
 
 My solutions for these labs in CMU 15213 course
 
-No guarantee of correctness
+Process:
++ datalab: 10 / 36
 
 Env:
     WSL Ubuntu-18.04
