@@ -3,7 +3,7 @@
 My solutions for these labs in CMU 15213 course
 
 Process:
-+ datalab: 10 / 36
++ datalab: 13 / 36
 
 Env:
     WSL Ubuntu-18.04
