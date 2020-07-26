@@ -210,7 +210,9 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return 2;
+  int b = !x;
+  int a = (((~((~b) & 1) + 1) & y) + (((~b) + 1) & z));
+  return a;
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
