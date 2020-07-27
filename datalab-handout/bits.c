@@ -143,6 +143,7 @@ NOTES:
  *   Rating: 1
  */
 int bitXor(int x, int y) {
+  // De Morgan's laws 
   int ret = (~(x & y)) & (~( (~x) & (~y) ) );
   return ret;
 }
@@ -153,7 +154,8 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmin(void) {
-  return (1 << 31);
+  // use negative number shifting to avoid ub (signed overflow)
+  return ((~1 + 1) << 31);
 }
 //2
 /*
@@ -258,7 +260,41 @@ int logicalNeg(int x) {
  *  Rating: 4
  */
 int howManyBits(int x) {
-  return 0;
+  // Cannot do.
+  // https://github.com/nikitos3000/cmu-15213-m14/blob/master/L1-datalab/bits.c
+  int y, result, mask16, mask8, mask4, mask2, mask1, bitnum;
+
+  mask1 = 0x2;                    // 0x1 << 1
+  mask2 = 0xC;                    // 0x3 << 2
+  mask4 = 0xF0;                   // 0x000000F0
+  mask8 = 0xFF << 8;              // 0x0000FF00
+  mask16 = (mask8 | 0xFF) << 16;  // 0xFFFF0000
+
+  result = 1;
+  y = x ^ (x >> 31);  //cast the number to positive with the same result
+
+  // Check first 16 bits, if they have at least one bit - result > 16
+  bitnum = (!!(y & mask16)) << 4;  // 16 OR zero
+  result += bitnum;
+  y = y >> bitnum;
+
+  bitnum = (!!(y & mask8)) << 3;  // 8 OR zero
+  result += bitnum;
+  y = y >> bitnum;
+
+  bitnum = (!!(y & mask4)) << 2;  // 4 OR zero
+  result += bitnum;
+  y = y >> bitnum;
+
+  bitnum = (!!(y & mask2)) << 1;  // 2 OR zero
+  result += bitnum;
+  y = y >> bitnum;
+
+  bitnum = !!(y & mask1);  // 1 OR zero
+  result += bitnum;
+  y = y >> bitnum;
+
+  return result + (y & 1);
 }
 //float
 /* 
@@ -273,6 +309,8 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 unsigned floatScale2(unsigned uf) {
+  int expMask = 0xFF;
+  
   return 2;
 }
 /* 

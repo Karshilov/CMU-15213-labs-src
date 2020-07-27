@@ -1,9 +1,9 @@
 # CMU-15213-labs-src
 
-My solutions for these labs in CMU 15213 course
+My solutions for these labs in CMU 15213 course (2015 Fall version)
 
 Process:
-+ datalab: 20 / 36
++ datalab: 24 / 36
 
 Env:
     WSL Ubuntu-18.04
